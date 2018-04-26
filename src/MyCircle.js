@@ -52,10 +52,6 @@ class MyCircle extends CGFobject
 
         }
 
-        console.log(this.texCoords);
-
-
-
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
 

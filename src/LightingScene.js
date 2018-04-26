@@ -30,22 +30,7 @@ class LightingScene extends CGFscene
 		this.axis = new CGFaxis(this);
 
 		// Scene elements
-		this.table = new MyTable(this);
-		this.wallLeft = new MyQuad(this, -0.5, 1.5, -0.5, 1.5);
-		this.wallRight = new Plane(this);
-		this.floor = new MyQuad(this, 0, 10, 0, 12);
-
-		this.boardA = new Plane(this, BOARD_A_DIVISIONS, -0.25,1.25,0,1);
-		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
-
-		//TP3
-		this.prism = new MyPrism(this, 8, 20);
-		this.cylinder = new MyCylinder(this, 8, 20);
-
-		//TP5
-		this.clock = new MyClock(this);
-		//this.test = new MyClockHand(this, 90, 0.5);
-
+		this.car = new MyVehicle(this);
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
@@ -62,36 +47,9 @@ class LightingScene extends CGFscene
 		this.materialB.setSpecular(0.8,0.8,0.8,1);
 		this.materialB.setShininess(120);
 
-		this.slidesAppearance = new CGFappearance(this);
-		this.slidesAppearance.loadTexture("../resources/images/slides.png");
-		this.slidesAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
-		this.slidesAppearance.setAmbient(0.3,0.3,0.3,1);
-		this.slidesAppearance.setDiffuse(0.9,0.9,0.9,1);
-		this.slidesAppearance.setSpecular(0.2,0.2,0.2,1);
-		this.slidesAppearance.setShininess(10);
-
-		this.boardAppearance = new CGFappearance(this);
-		this.boardAppearance.loadTexture("../resources/images/board.png");
-		this.boardAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
-		this.boardAppearance.setAmbient(0.3,0.3,0.3,1);
-		this.boardAppearance.setDiffuse(0.4,0.4,0.4,1);
-		this.boardAppearance.setSpecular(0.2,0.2,0.2,1);
-		this.boardAppearance.setShininess(120);
-
-		this.cylinderAppearance = new CGFappearance(this);
-		this.cylinderAppearance.loadTexture("../resources/images/cylinder.png");
-
 		//Textures
 
 		this.enableTextures(true);
-
-		this.floorTexture = new CGFappearance(this);
-		this.floorTexture.loadTexture("../resources/images/floor.png");
-		this.floorTexture.setTextureWrap("REPEAT", "REPEAT");
-
-		this.windowAppearance = new CGFappearance(this);
-		this.windowAppearance.loadTexture("../resources/images/window.png");
-		this.windowAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 
 		this.setUpdatePeriod(100);
 	};
@@ -106,13 +64,13 @@ class LightingScene extends CGFscene
 		this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
 
 		// Positions for four lights
-		this.lights[0].setPosition(4, 6, 1, 1);
+		this.lights[0].setPosition(-5, 6, -5, 1);
 		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 
-		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
+		this.lights[1].setPosition(0, 6, 6, 1.0);
 		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 
-		this.lights[2].setPosition(-1, 4.0, 8.0, 1.0);
+		this.lights[2].setPosition(6, 0, 0, 1.0);
 		this.lights[2].setVisible(true); // show marker on light position (different from enabled)
 
 		this.lights[0].setAmbient(0, 0, 0, 1);
@@ -157,100 +115,11 @@ class LightingScene extends CGFscene
 		this.axis.display();
 
 		// ---- END Background, camera and axis setup
-
-		// ---- BEGIN Scene drawing section
-
+		
 		this.materialDefault.apply();
-		//this.test.display();
+		this.car.display();
 
-		// Floor
-		this.pushMatrix();
-			this.translate(7.5, 0, 7.5);
-			this.rotate(-90 * degToRad, 1, 0, 0);
-			this.scale(15, 15, 0.2);
-			this.floorTexture.apply();
-			this.floor.display();
-		this.popMatrix();
 
-		// Left Wall
-		this.pushMatrix();
-			this.translate(0, 4, 7.5);
-			this.rotate(90 * degToRad, 0, 1, 0);
-			this.scale(15, 8, 0.2);
-			this.windowAppearance.apply();
-			this.wallLeft.display();
-		this.popMatrix();
-
-		// Plane Wall
-		this.pushMatrix();
-			this.translate(7.5, 4, 0);
-			this.scale(15, 8, 0.2);
-			this.materialDefault.apply();
-			this.wallRight.display();
-		this.popMatrix();
-
-		// First Table
-		this.pushMatrix();
-			this.translate(5, 0, 8);
-			this.table.display();
-		this.popMatrix();
-
-		// Second Table
-		this.pushMatrix();
-			this.translate(12, 0, 8);
-			this.table.display();
-		this.popMatrix();
-
-		// Board A
-		this.pushMatrix();
-			this.translate(4, 4.5, 0.2);
-			this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-			this.slidesAppearance.apply();
-			this.boardA.display();
-		this.popMatrix();
-
-		// Board B
-		this.pushMatrix();
-			this.translate(10.5, 4.5, 0.2);
-			this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-			this.boardAppearance.apply();
-			this.boardB.display();
-		this.popMatrix();
-
-		//Coluna 1
-		this.pushMatrix();
-			this.scale(0.8,15,0.8);
-			this.translate(5,0,16);
-			this.rotate(-Math.PI/2,1,0,0);
-			this.cylinderAppearance.apply();
-			this.cylinder.display();
-		this.popMatrix();
-
-		//Coluna 2
-		this.pushMatrix();
-			this.scale(0.8,15,0.8);
-			this.translate(16,0,16);
-			this.rotate(-Math.PI/2,1,0,0);
-			this.cylinderAppearance.apply();
-			this.cylinder.display();
-		this.popMatrix();
-
-		//clock
-		this.pushMatrix();
-			this.scale(0.5, 0.5, 0.1);
-			this.translate(14.5,14.5,0);
-			this.materialDefault.apply();
-			this.clock.display();
-		this.popMatrix();
-
-		// ---- END Scene drawing section
 	};
 
-	update(currTime)
-	{
-		this.lastTime = this.lastTime || 0;
-		this.deltaTime = currTime - this.lastTime;
-		this.lastTime = currTime;
-		this.clock.update(this.deltaTime);
-	};
 };
