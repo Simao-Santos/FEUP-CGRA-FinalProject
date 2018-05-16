@@ -21,7 +21,7 @@ class LightingScene extends CGFscene
 
 		this.initLights();
 
-		this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		this.gl.clearColor(0.5294117647058824, 0.807843137254902, 0.9215686274509803, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.CULL_FACE);
@@ -31,6 +31,8 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.car = new MyVehicle(this);
+
+		this.terrain = new Plane(this, 50);
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
@@ -50,6 +52,10 @@ class LightingScene extends CGFscene
 		//Textures
 
 		this.enableTextures(true);
+
+		this.terrainTexture = new CGFappearance(this);
+		this.terrainTexture.loadTexture("../resources/images/grass.jpg");
+		this.terrainTexture.setTextureWrap("REPEAT", "REPEAT");
 
 		this.setUpdatePeriod(100);
 	};
@@ -117,8 +123,12 @@ class LightingScene extends CGFscene
 		// ---- END Background, camera and axis setup
 		
 		this.materialDefault.apply();
-		this.car.display();
-
+		this.pushMatrix();
+			this.scale(50, 1, 50);
+			this.rotate(-Math.PI/2, 1, 0, 0);
+			this.terrainTexture.apply();
+			this.terrain.display();
+		this.popMatrix();
 
 	};
 
