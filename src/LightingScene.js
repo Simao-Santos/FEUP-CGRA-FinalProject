@@ -13,6 +13,10 @@ class LightingScene extends CGFscene
 		super();
 	};
 
+	doSomething(){
+		console.log("Doing something...");
+	};
+
 	init(application)
 	{
 		super.init(application);
@@ -58,6 +62,10 @@ class LightingScene extends CGFscene
 		this.terrainTexture.setTextureWrap("REPEAT", "REPEAT");
 
 		this.setUpdatePeriod(100);
+
+		//Interface
+
+		
 	};
 
 	initCameras()
@@ -69,7 +77,7 @@ class LightingScene extends CGFscene
 	{
 		this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
 
-		// Positions for four lights
+		// Positions for three lights
 		this.lights[0].setPosition(-5, 6, -5, 1);
 		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 
