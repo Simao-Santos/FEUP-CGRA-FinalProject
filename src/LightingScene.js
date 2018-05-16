@@ -30,10 +30,10 @@ class LightingScene extends CGFscene
 		this.axis = new CGFaxis(this);
 
 		// Scene elements
-		this.car = new MyVehicle(this);
+		//this.car = new MyVehicle(this);
 
 		//Test elements
-		//this.topBodywork = new TopBodyWork(this);
+		this.trapeze = new MyTrapezePrism(this, 3, 0.2, 0.2, 0.05, 1);
 		//this.topbody = new TopBodyWork(this, 1, 1, 0.5, 0.5);
 
 		// Materials
@@ -79,11 +79,11 @@ class LightingScene extends CGFscene
 
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[0].enable();
+		//this.lights[0].enable();
 
 		this.lights[1].setAmbient(0, 0, 0, 1);
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[1].enable();
+		//this.lights[1].enable();
 
 		this.lights[2].setAmbient(0, 0, 0, 1);
 		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -121,9 +121,9 @@ class LightingScene extends CGFscene
 		// ---- END Background, camera and axis setup
 
 		this.materialDefault.apply();
-		this.car.display();
-		//this.trapeze.display();
-		//this.topBodywork.display();
+		//this.car.display();
+		this.trapeze.display();
+		//this.topbody.display();
 
 
 	};

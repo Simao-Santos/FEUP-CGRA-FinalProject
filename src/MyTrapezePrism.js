@@ -72,14 +72,14 @@ class MyTrapezePrism extends CGFobject
 		Pushes the indices from both trapezoid sides of the prism
 		*/
 
-		this.indices.push(0, 3, 2);
-		this.indices.push(2, 1, 0);
-
-		/*There are 8 vertices at the end that are the vertices of each of the top faces of the solid, so we subtract them to obtain the last of the vertices*/
-		max_vertice_indice = (this.vertices.length) / 3 - 1 - 8;
-
-		this.indices.push(max_vertice_indice - 3, max_vertice_indice - 2, max_vertice_indice - 1);
-		this.indices.push(max_vertice_indice - 1, max_vertice_indice, max_vertice_indice - 3);
+		// this.indices.push(0, 3, 2);
+		// this.indices.push(2, 1, 0);
+		//
+		// /*There are 8 vertices at the end that are the vertices of each of the top faces of the solid, so we subtract them to obtain the last of the vertices*/
+		// max_vertice_indice = (this.vertices.length) / 3 - 1 - 8;
+		//
+		// this.indices.push(max_vertice_indice - 3, max_vertice_indice - 2, max_vertice_indice - 1);
+		// this.indices.push(max_vertice_indice - 1, max_vertice_indice, max_vertice_indice - 3);
 
 		/*
 		Pushes the side faces of the trapezium prism
