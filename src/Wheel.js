@@ -27,6 +27,12 @@
         this.front.display();
             this.scene.popMatrix();
 
+            this.scene.pushMatrix();
+        this.scene.scale(0.5, 0.5, 1);
+        this.scene.rotate(Math.PI, 0, 1, 0);
+        this.front.display();
+            this.scene.popMatrix();
+
     };
 
 
