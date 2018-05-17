@@ -68,8 +68,15 @@ class LightingScene extends CGFscene
 
 		//Interface
 
-		this.interface = new MyInterface();
+		this.option1 = true;
+		this.option2 = false;
+		this.speed = 3;
+
+
 		this.axis_status = false;
+		this.lights1 = true;
+		this.lights2 = true;
+		this.lights3 = true;
 
 
 	};
@@ -95,11 +102,11 @@ class LightingScene extends CGFscene
 
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		//this.lights[0].enable();
+		this.lights[0].enable();
 
 		this.lights[1].setAmbient(0, 0, 0, 1);
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		//this.lights[1].enable();
+		this.lights[1].enable();
 
 		this.lights[2].setAmbient(0, 0, 0, 1);
 		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -111,14 +118,6 @@ class LightingScene extends CGFscene
 		for (var i = 0; i < this.lights.length; i++)
 			this.lights[i].update();
 	}
-
-	Toggle_Axis ()
-	{
-		if(this.axis_status)
-			this.axis_status = false;
-		else this.axis_status = true;
-	}
-
 
 	display()
 	{
@@ -154,6 +153,9 @@ class LightingScene extends CGFscene
 		// ---- END Background, camera and axis setup
 
 		this.materialDefault.apply();
+
+		this.car.display();
+
 		this.pushMatrix();
 			this.scale(50, 1, 50);
 			this.rotate(-Math.PI/2, 1, 0, 0);
@@ -164,8 +166,21 @@ class LightingScene extends CGFscene
 	};
 
 	update() {
+		// Update all lights used
+		if(this.lights1)
+			this.lights[0].enable();
+		else
+			this.lights[0].disable();
 
+		if(this.lights2)
+			this.lights[1].enable();
+		else
+			this.lights[1].disable();
 
+		if(this.lights3)
+			this.lights[2].enable();
+		else
+			this.lights[2].disable();
 	};
 
 

@@ -29,23 +29,15 @@ class MyInterface extends CGFinterface {
 		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); };
 
 
-		this.gui.add(this.scene, 'Toggle_Axis');
+		this.gui.add(this.scene, 'axis_status');
 
-/*
+		var f1 = this.gui.addFolder('Toggle_Lights');
+		f1.add(this.scene, 'lights1');
+		f1.add(this.scene, 'lights2');
+		f1.add(this.scene, 'lights3');
 
-		var Luzes = function(){
-            this.light1 = false;
-			this.light2 = true;
-			this.light3 = true;
-		};
 
-		var text = new Luzes();
-		var light_group = gui.addFolder('Lights');
-		f1.add(text, 'light1');
-		f1.add(text, 'light2');
-		f1.add(text, 'light3');
-
-		f1.open(); //isto poe a folder "Luzes" aberto por default*/
+		//isto poe a folder "Luzes" aberto por default
 
 		// add a group of controls (and open/expand by defult)
 
