@@ -12,6 +12,11 @@ serialInclude([
 	'MyCylinder.js',
 	'MyCircle.js',
 	'MyVehicle.js',
+	'TopBodyWork.js',
+	'Wheel.js',
+	//'TriangularPrism.js',
+	//'QuadrangularPrism.js',
+	'MyTrapezePrism.js',
 	'MyTerrain.js',
 	'MyInterface.js',
 

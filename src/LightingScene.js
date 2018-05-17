@@ -36,6 +36,9 @@ class LightingScene extends CGFscene
 		// Scene elements
 		this.car = new MyVehicle(this);
 
+		//Test elements
+
+
 		this.terrain = new Plane(this, 50);
 
 		// Materials
@@ -92,11 +95,11 @@ class LightingScene extends CGFscene
 
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[0].enable();
+		//this.lights[0].enable();
 
 		this.lights[1].setAmbient(0, 0, 0, 1);
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[1].enable();
+		//this.lights[1].enable();
 
 		this.lights[2].setAmbient(0, 0, 0, 1);
 		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
