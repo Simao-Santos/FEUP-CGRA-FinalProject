@@ -1,4 +1,4 @@
- 
+
 class MyInterface extends CGFinterface {
 
 
@@ -8,8 +8,9 @@ class MyInterface extends CGFinterface {
 	 */
  	constructor () {
  		super();
+        this.gui = new dat.GUI();
  	}
-	
+
 	/**
 	 * init
 	 * @param {CGFapplication} application
@@ -21,35 +22,30 @@ class MyInterface extends CGFinterface {
 		// init GUI. For more information on the methods, check:
 		//  http://workshop.chromeexperiments.com/examples/gui
 
-		var gui = new dat.GUI();
 
 		// add a button:
 		// the first parameter is the object that is being controlled (in this case the scene)
 		// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
-		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
+		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); };
 
-		var Eixo = function(){
-			this.Show = true;
-		};
 
-		var text = new Eixo();
-		var f2 = gui.addFolder('Axis');
-		f2.add(text, 'Show');
+		this.gui.add(this.scene, 'Toggle_Axis');
 
+/*
 
 		var Luzes = function(){
-			this.light1 = true;
+            this.light1 = false;
 			this.light2 = true;
 			this.light3 = true;
 		};
 
 		var text = new Luzes();
-		var f1 = gui.addFolder('Lights');
+		var light_group = gui.addFolder('Lights');
 		f1.add(text, 'light1');
 		f1.add(text, 'light2');
 		f1.add(text, 'light3');
 
-		//f1.open(); //isto poe a folder "Luzes" aberto por default
+		f1.open(); //isto poe a folder "Luzes" aberto por default*/
 
 		// add a group of controls (and open/expand by defult)
 
@@ -88,4 +84,3 @@ class MyInterface extends CGFinterface {
 		};
 	};
 };
-

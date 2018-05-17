@@ -65,7 +65,10 @@ class LightingScene extends CGFscene
 
 		//Interface
 
-		
+		this.interface = new MyInterface();
+		this.axis_status = false;
+
+
 	};
 
 	initCameras()
@@ -106,6 +109,13 @@ class LightingScene extends CGFscene
 			this.lights[i].update();
 	}
 
+	Toggle_Axis ()
+	{
+		if(this.axis_status)
+			this.axis_status = false;
+		else this.axis_status = true;
+	}
+
 
 	display()
 	{
@@ -126,10 +136,20 @@ class LightingScene extends CGFscene
 		this.updateLights();
 
 		// Draw axis
-		this.axis.display();
+		if(this.axis_status) {
+			this.axis.display();
+		}
+
+		// var Luzes = function(){
+		// 	this.light1 = false;
+		// 	this.light2 = true;
+		// 	this.light3 = true;
+		// };
+
+		//console.log(this.interface.text);
 
 		// ---- END Background, camera and axis setup
-		
+
 		this.materialDefault.apply();
 		this.pushMatrix();
 			this.scale(50, 1, 50);
@@ -139,5 +159,11 @@ class LightingScene extends CGFscene
 		this.popMatrix();
 
 	};
+
+	update() {
+
+
+	};
+
 
 };
