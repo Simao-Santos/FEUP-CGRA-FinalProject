@@ -9,7 +9,7 @@ class MyInterface extends CGFinterface {
  	constructor () {
  		super();
         this.gui = new dat.GUI();
- 	}
+ 	};
 
 	/**
 	 * init
@@ -29,23 +29,12 @@ class MyInterface extends CGFinterface {
 		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); };
 
 
-		this.gui.add(this.scene, 'Toggle_Axis');
+        this.gui.add(this.scene, 'Toogle_Axis');
 
-/*
-
-		var Luzes = function(){
-            this.light1 = false;
-			this.light2 = true;
-			this.light3 = true;
-		};
-
-		var text = new Luzes();
-		var light_group = gui.addFolder('Lights');
-		f1.add(text, 'light1');
-		f1.add(text, 'light2');
-		f1.add(text, 'light3');
-
-		f1.open(); //isto poe a folder "Luzes" aberto por default*/
+		var f1 = this.gui.addFolder('Toggle_Lights');
+		f1.add(this.scene, 'lights1');
+		f1.add(this.scene, 'lights2');
+		f1.add(this.scene, 'lights3');
 
 		// add a group of controls (and open/expand by defult)
 
@@ -62,25 +51,23 @@ class MyInterface extends CGFinterface {
 
 		//this.gui.add(this.scene, 'speed', -5, 5);
 
-		return true;
+        this.initKeys();
+        return true;
 	};
 
-	/**
-	 * processKeyboard
-	 * @param event {Event}
-	 */
-	processKeyboard(event) {
-		// call CGFinterface default code (omit if you want to override)
-		super.processKeyboard(event);
+    initKeys() {
+        this.scene.gui=this;
+        this.processKeyboard=function(){};
+        this.activeKeys={};
+    };
+    processKeyDown(event) {
+        this.activeKeys[event.code]=true;
+    };
+    processKeyUp(event) {
+        this.activeKeys[event.code]=false;
+    };
+    isKeyPressed(keyCode) {
+        return this.activeKeys[keyCode] || false;
+    };
 
-		// Check key codes e.g. here: http://www.asciitable.com/
-		// or use String.fromCharCode(event.keyCode) to compare chars
-
-		// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
-		switch (event.keyCode)
-		{
-			case (65):	// only works for capital 'A', as it is
-				console.log("Key 'A' pressed");
-		};
-	};
 };

@@ -14,7 +14,6 @@ class TopBodyWork extends CGFobject
 
     display() {
 
-
 		this.scene.scale(1, 0.9, 1.9);
         this.topBody.display();
 

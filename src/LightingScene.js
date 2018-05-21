@@ -13,10 +13,6 @@ class LightingScene extends CGFscene
 		super();
 	};
 
-	doSomething(){
-		console.log("Doing something...");
-	};
-
 	init(application)
 	{
 		super.init(application);
@@ -35,6 +31,9 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.car = new MyVehicle(this);
+		this.test_c = new LowBodyWork(this);
+		this.test2 = new LowVehicleFront(this);
+		this.test = new MySpecialTriangle(this);
 
 		//Test elements
 
@@ -64,12 +63,17 @@ class LightingScene extends CGFscene
 		this.terrainTexture.loadTexture("../resources/images/grass.jpg");
 		this.terrainTexture.setTextureWrap("REPEAT", "REPEAT");
 
-		this.setUpdatePeriod(100);
+		this.setUpdatePeriod(30);
 
 		//Interface
+		this.option1 = true;
+		this.option2 = false;
+		this.speed = 3;
 
-		this.interface = new MyInterface();
-		this.axis_status = false;
+		this.Toogle_Axis = true;
+		this.lights1 = true;
+		this.lights2 = true;
+		this.lights3 = true;
 
 
 	};
@@ -95,11 +99,11 @@ class LightingScene extends CGFscene
 
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		//this.lights[0].enable();
+		this.lights[0].enable();
 
 		this.lights[1].setAmbient(0, 0, 0, 1);
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		//this.lights[1].enable();
+		this.lights[1].enable();
 
 		this.lights[2].setAmbient(0, 0, 0, 1);
 		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -112,11 +116,44 @@ class LightingScene extends CGFscene
 			this.lights[i].update();
 	}
 
-	Toggle_Axis ()
+	doSomething(){
+		console.log("Doing something...");
+	};
+
+	checkKeys()
 	{
-		if(this.axis_status)
-			this.axis_status = false;
-		else this.axis_status = true;
+		var text="Keys pressed: ";
+		var keysPressed=false;
+		if (this.gui.isKeyPressed("KeyW"))
+		{
+			text+=" W ";
+			keysPressed=true;
+			this.car.velocity += 0.01 * this.speed;
+		}
+		if (this.gui.isKeyPressed("KeyS"))
+		{
+			text+=" S ";
+			keysPressed=true;
+			this.car.velocity -= 0.01 * this.speed;
+
+		}
+		if (this.gui.isKeyPressed("KeyA"))
+		{
+			text+=" A ";
+			keysPressed=true;
+			this.car.angle += (Math.PI * 2) / 100;
+		}
+		if (this.gui.isKeyPressed("KeyD"))
+		{
+			text+=" D ";
+			keysPressed=true;
+			this.car.angle -= (Math.PI * 2) / 100;
+
+		}
+		if (keysPressed){
+			console.log(text);
+
+		}
 	}
 
 
@@ -139,21 +176,24 @@ class LightingScene extends CGFscene
 		this.updateLights();
 
 		// Draw axis
-		if(this.axis_status) {
+		if(this.Toogle_Axis) {
 			this.axis.display();
 		}
-
-		// var Luzes = function(){
-		// 	this.light1 = false;
-		// 	this.light2 = true;
-		// 	this.light3 = true;
-		// };
-
-		//console.log(this.interface.text);
 
 		// ---- END Background, camera and axis setup
 
 		this.materialDefault.apply();
+
+		this.pushMatrix();
+		//this.scale(1, 5, 1);
+		//this.rotate( - Math.PI / 2, 1, 0, 0);
+		//this.test_c.display();
+		this.popMatrix();
+
+			this.pushMatrix();
+		this.car.display();
+			this.popMatrix();
+
 		this.pushMatrix();
 			this.scale(50, 1, 50);
 			this.rotate(-Math.PI/2, 1, 0, 0);
@@ -161,10 +201,34 @@ class LightingScene extends CGFscene
 			this.terrain.display();
 		this.popMatrix();
 
+
 	};
 
-	update() {
+	update(currTime) {
 
+		this.lastTime = this.lastTime || 0;
+		this.deltaTime = currTime - this.lastTime;
+		this.lastTime = currTime;
+
+		// Update all lights used
+		if(this.lights1)
+			this.lights[0].enable();
+		else
+			this.lights[0].disable();
+
+		if(this.lights2)
+			this.lights[1].enable();
+		else
+			this.lights[1].disable();
+
+		if(this.lights3)
+			this.lights[2].enable();
+		else
+			this.lights[2].disable();
+
+
+		this.checkKeys();
+		this.car.updateCoordinates(this.deltaTime);
 
 	};
 

@@ -14,11 +14,14 @@ serialInclude([
 	'MyVehicle.js',
 	'TopBodyWork.js',
 	'Wheel.js',
-	//'TriangularPrism.js',
-	//'QuadrangularPrism.js',
 	'MyTrapezePrism.js',
 	'MyTerrain.js',
 	'MyInterface.js',
+	'LowVehicleFront.js',
+	'LowBodyWork.js',
+	'QuadrangularPrism.js',
+	'MySemisphere.js',
+	'MySpecialTriangle.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);

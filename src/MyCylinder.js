@@ -4,12 +4,13 @@
  */
 class MyCylinder extends CGFobject
 {
-	constructor(scene, slices, stacks)
+	constructor(scene, slices, stacks, display_slices)
 	{
 		super(scene);
 
         this.slices = slices;
         this.stacks = stacks;
+		this.display_slices = display_slices || slices;
 
 		this.initBuffers();
 	};
@@ -18,57 +19,30 @@ class MyCylinder extends CGFobject
 	{
 		var degToRad = Math.PI / 180.0;
 		var alpha = (360 / this.slices) * degToRad;
-		var ang = 0;
-		var floor_height = 1 / this.stacks;
-		var x_coord, y_coord, z_coord;
+		var ang = Math.PI * 2 / this.slices;
+		this.slices = this.display_slices;
 		this.vertices = [];
 		this.indices = [];
 		this.normals = [];
 		this.texCoords = [];
 
-		for(var j = 0; j <= this.stacks; j++){
+		for (var j = 0; j <= this.stacks; j++) {
+	          for (var i = 0; i <= this.slices; i++) {
+	              this.vertices.push(Math.cos(ang * i), Math.sin(ang * i), j * 1 / this.stacks);
+	              this.normals.push(Math.cos(i * ang), Math.sin(i * ang), 0);
+	              this.texCoords.push(i * 1 / this.slices, j * 1 / this.stacks);
+	          }
+	      }
 
-			z_coord = floor_height * j;
 
-		    for(var i = 0; i < this.slices; i++){
-		        x_coord = Math.cos(alpha * i);
-		        y_coord = Math.sin(alpha * i);
-		        this.vertices.push(x_coord, y_coord, z_coord);
+		for (i = 0; i < this.stacks; i++) {
+		        for (j = 0; j < this.slices; j++) {
+
+		            this.indices.push(i * (this.slices + 1) + j, i * (this.slices + 1) + 1 + j, (i + 1) * (this.slices + 1) + j);
+		            this.indices.push(i * (this.slices + 1) + 1 + j, (i + 1) * (this.slices + 1) + 1 + j, (i + 1) * (this.slices + 1) + j);
+		        }
 		    }
 
-		}
-
-
-        for(var i = 0; i < (this.slices * this.stacks); i++){
-
-            if((i + 1) % this.slices == 0) {
-                this.indices.push(i, 0 , i +  1 );
-                this.indices.push(i + 1, i + this.slices, i);
-            }else {
-                this.indices.push(i, i + 1, i + this.slices + 1);
-                this.indices.push(i + this.slices + 1, i + this.slices, i);
-            }
-		}
-
-		var x, y;
-
-		var x, y;
-		var b = alpha / 2;
-
-		for(var i = 0; i < this.stacks + 1; i++) {
-			for(var j = 0; j < this.slices; j++) {
-				x = Math.cos(alpha * j);
-				y = Math.sin(alpha * j);
-
-				this.normals.push(x,y,0);
-			}
-		}
-
-		for(let j =0; j <= this.stacks; j++){
-			for(let i=0; i < this.slices; i++){
-				this.texCoords.push(i*1/this.slices,j*1/this.stacks);
-			}
-		}
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();

@@ -30,6 +30,11 @@ class MyTrapezePrism extends CGFobject
 		this.normals = [];
 		//this.texCoords = [];
 
+		/*
+		The right alpha is the internal angle formed by the right inclined face with xOz, and the left one the same but for the left face.
+		The respective beta angles are internal angles formed by the xOz and the normals of each side
+		*/
+
 		var halfMidLength = this.midLength / 2;
 		var top_floorHeight = (1 - 2 * this.topWidthDiff) / this.stacks;
 		var bot_floorHeight = 1 / this.stacks;
@@ -112,15 +117,15 @@ class MyTrapezePrism extends CGFobject
 		/*
 		Pushes bot prism face
 		*/
-		initial_index = 0;
-		for(var i = 0; i < this.stacks; i++){
-
-				this.indices.push(initial_index + 7, initial_index + 3, initial_index);
-				this.indices.push(initial_index, initial_index + 4, initial_index + 7);
-
-			initial_index += 4;
-
-		}
+		// initial_index = 0;
+		// for(var i = 0; i < this.stacks; i++){
+		//
+		// 		this.indices.push(initial_index , initial_index + 3, initial_index + 7);
+		// 		this.indices.push(initial_index + 7, initial_index + 4, initial_index );
+		//
+		// 	initial_index += 4;
+		//
+		// }
 
 		/*
 		Pushes normals
@@ -132,9 +137,9 @@ class MyTrapezePrism extends CGFobject
 		for(var i = 0; i <= this.stacks; i++) {
 
 			this.normals.push(Math.cos(right_beta), Math.sin(right_beta), 0);
-			this.normals.push(Math.cos(average_top_angle_right), Math.sin(right_beta), 0);
+			this.normals.push(Math.cos(right_beta), Math.sin(right_beta), 0);
 
-			this.normals.push( -Math.cos(average_top_angle_left), Math.sin(left_beta), 0);
+			this.normals.push( -Math.cos(left_beta), Math.sin(left_beta), 0);
 			this.normals.push( -Math.cos(left_beta), Math.sin(left_beta), 0);
 
 		}
@@ -147,12 +152,6 @@ class MyTrapezePrism extends CGFobject
 			this.normals.push(0, 0, 1);
 		}*/
 
-
-
-
-		console.log(this.vertices);
-		console.log(this.indices);
-		console.log(this.normals);
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();

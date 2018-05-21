@@ -15,73 +15,65 @@ class QuadrangularPrism extends CGFobject
 
 	initBuffers()
 	{
+		var degToRad = Math.PI / 180.0;
+		var alpha = (360 / 4) * degToRad;
 		var ang = 0;
 		var floor_height = 1 / this.stacks;
-		var x_coord, y_coord, z_coord, i, index_start, max_vertice_indice;
-
+		var x_coord, y_coord, z_coord;
 		this.vertices = [];
 		this.indices = [];
 		this.normals = [];
 
-        for(i = 0; i <= this.stacks; i++) {
+		for(var j = 0; j < this.stacks; j++){
+		    for(var i = 0; i < 4 - 1; i++){
 
-            z_coord = floor_height * i;
+		        x_coord = Math.cos(alpha * i);
+		        y_coord = Math.sin(alpha * i);
+		        z_coord = floor_height * j;
+		        this.vertices.push(x_coord, y_coord, z_coord);
+		        z_coord = floor_height * (j + 1);
+		        this.vertices.push(x_coord, y_coord, z_coord);
 
-            this.vertices.push(0, 0, z_coord);
-            this.vertices.push(1, 0, z_coord);
-            this.vertices.push(0, 1, z_coord);
-            this.vertices.push(1, 1, z_coord);
+		        x_coord = Math.cos(alpha * (i + 1));
+		        y_coord = Math.sin(alpha * (i + 1));
+		        z_coord = floor_height * (j + 1);
+		        this.vertices.push(x_coord, y_coord, z_coord);
+		        z_coord = floor_height * j;
+		        this.vertices.push(x_coord, y_coord, z_coord);
+
+		    }
+		}
+
+		var index = 0;
+
+		for(var i = 0; i < this.stacks; i++){
+			for(var j = 0; j < 3; j++){
+
+				this.indices.push(index, index+3, index+2);
+				this.indices.push(index+2, index+1, index);
+				index += 4;
+			}
+		}
+
+		var x, y;
+		var b = alpha / 2;
+
+		for(var i = 0; i < this.stacks; i++) {
+			for(var j = 0; j < 3; j++) {
+				x = Math.cos(b + alpha * j);
+				y = Math.sin(b + alpha * j);
+
+				for(var s = 0; s < 4; s++){
+					this.normals.push(x,y,0);
+				}
+			}
+		}
 
 
-        }
+		console.log(this.vertices);
+		console.log(this.indices);
+		console.log(this.normals);
 
-        /*Pushes both top vertices again because of the normals*/
-        this.vertices.push(0, 0, 0);
-        this.vertices.push(1, 0, 0);
-        this.vertices.push(0, 1, 0);
-        this.vertices.push(1, 1, 0);
-
-        this.vertices.push(0, 0, floor_height * this.stacks);
-        this.vertices.push(1, 0, floor_height * this.stacks);
-        this.vertices.push(0, 1, floor_height * this.stacks);
-        this.vertices.push(1, 1, floor_height * this.stacks);
-
-
-
-        /*Pushes indices of the side of each stack*/
-
-        for(i = 0; i < this.stacks; i++) {
-
-            for(var j = 0; j < 4; j++) {
-                
-                this.indices.push(index_start + j, index_start + j + 1, index_start + j + 5);
-                this.indices.push(index_start + j + 5, index_start + j + 4, index_start + j);
-
-            }
-
-        }
-
-        /*Pushes each top faces indices*/
-        max_vertice_indice = (this.vertices.length / 3) - 1;
-        this.indices.push(0, 1, 2);
-        this.indices.push(max_vertice_indice, max_vertice_indice - 1, max_vertice_indice - 2);
-
-        /*Pushes the normals of the side of each stack*/
-        for( i = 0; i <= this.stacks; i++) {
-
-            this.normals.push(Math.cos(side_alpha), Math.sin(side_alpha), 0);
-            this.normals.push(Math.cos(side_alpha), Math.sin(side_alpha), 0);
-
-        }
-
-        /*Pushes the normals of the top faces*/
-        this.normals.push(0, 0, -1);
-        this.normals.push(0, 0, -1);
-        this.normals.push(0, 0, -1);
-
-        this.normals.push(0, 0, 1);
-        this.normals.push(0, 0, 1);
-        this.normals.push(0, 0, 1);
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
