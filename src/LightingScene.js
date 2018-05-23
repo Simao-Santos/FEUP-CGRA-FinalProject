@@ -32,7 +32,7 @@ class LightingScene extends CGFscene
 		// Scene elements
 		this.car = new MyVehicle(this);
 		this.test2 = new LowVehicleFront(this);
-		this.test = new LowBodyWork(this);
+		this.test = new TopBodyWork(this, 1, 0.5, 0.3);
 
 		//Test elements
 
@@ -233,7 +233,7 @@ class LightingScene extends CGFscene
 		//this.translate(0, 0, - 0.5);
 		//this.mickeyMaterial.apply();
 
-	//	this.test.display();
+		//this.test.display();
 		this.popMatrix();
 		this.pushMatrix();
 		this.scale(0.7, 0.7, 0.6);

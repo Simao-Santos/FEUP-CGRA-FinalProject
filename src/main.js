@@ -20,6 +20,7 @@ serialInclude([
 	'LowVehicleFront.js',
 	'MyRoundLight.js',
 	'MySmallLight.js',
+	'MyTrapezoid.js',
 	'Wheel.js',
 	'MyFender.js',
 	'MyBoxSides.js',
