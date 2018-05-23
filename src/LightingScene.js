@@ -31,10 +31,6 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.car = new MyVehicle(this);
-		this.test2 = new LowVehicleFront(this);
-		this.test = new TopBodyWork(this, 1, 0.5, 0.3);
-
-		//Test elements
 
 		//Altimetry
 
@@ -56,18 +52,6 @@ class LightingScene extends CGFscene
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
-
-		this.materialA = new CGFappearance(this);
-		this.materialA.setAmbient(0.3,0.3,0.3,1);
-		this.materialA.setDiffuse(0.6,0.6,0.6,1);
-		this.materialA.setSpecular(0.2,0.2,0.2,1);
-		this.materialA.setShininess(10);
-
-		this.materialB = new CGFappearance(this);
-		this.materialB.setAmbient(0.3,0.3,0.3,1);
-		this.materialB.setDiffuse(0.6,0.6,0.6,1);
-		this.materialB.setSpecular(0.8,0.8,0.8,1);
-		this.materialB.setShininess(120);
 
 		this.redMaterial = new CGFappearance(this);
 		this.redMaterial.loadTexture("../resources/images/red.png");
@@ -231,16 +215,6 @@ class LightingScene extends CGFscene
 		this.materialDefault.apply();
 
 		this.pushMatrix();
-			//this.rotate( - Math.PI / 4, 0, 1, 0);
-			//this.translate(0, 0, - 0.5);
-			//this.test.display();
-		this.popMatrix();
-			this.pushMatrix();
-			this.scale(0.7, 0.7, 0.6);
-			//this.test2.display();
-		this.popMatrix();
-
-		this.pushMatrix();
 			this.translate(0, 0, -10);
 			this.redMaterial.apply();
 			this.car.display();
@@ -321,7 +295,5 @@ class LightingScene extends CGFscene
 		this.car.updateCoordinates(this.deltaTime);
 
 	};
-
-
 
 };
