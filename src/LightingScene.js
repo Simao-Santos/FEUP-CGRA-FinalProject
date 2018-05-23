@@ -1,4 +1,4 @@
-var degToRad = Math.PI / 180.0;
+	var degToRad = Math.PI / 180.0;
 
 var BOARD_WIDTH = 6.0;
 var BOARD_HEIGHT = 4.0;
@@ -32,7 +32,7 @@ class LightingScene extends CGFscene
 		// Scene elements
 		this.car = new MyVehicle(this);
 		this.test2 = new LowVehicleFront(this);
-		this.test = new Wheel(this);
+		this.test = new LowBodyWork(this);
 
 		//Test elements
 
@@ -246,7 +246,7 @@ class LightingScene extends CGFscene
 			this.scale(50, 1, 50);
 			this.rotate(-Math.PI/2, 1, 0, 0);
 			this.terrainTexture.apply();
-			this.terrain.display();
+			//this.terrain.display();
 		this.popMatrix();
 
 

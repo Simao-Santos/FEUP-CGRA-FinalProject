@@ -26,38 +26,6 @@ class LowVehicleFront extends CGFobject
         this.halfcylinder.display();
         this.scene.popMatrix()
 
-        this.scene.pushMatrix();
-        this.scene.translate(2.2, 0.4, 0.6);
-        this.scene.rotate(Math.atan(0.1 / Math.sin(Math.PI / 4)), 0, -1, 0);
-        this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.scene.scale(0.2, 0.2, 0.05);
-        this.light.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.translate(2.2, 0.4, -0.6);
-        this.scene.rotate(Math.atan(0.1 / Math.sin(Math.PI / 4)), 0, 1, 0);
-        this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.scene.scale(0.2, 0.2, 0.05);
-        this.light.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.translate(2.2, 0.65, 0.8);
-        this.scene.rotate(Math.atan(0.1 / Math.sin(Math.PI / 4)), 0, -1, 0);
-        this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.scene.scale(0.05, 0.05, 0.1);
-        this.light.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.translate(2.2, 0.65, -0.8);
-        this.scene.rotate(Math.atan(0.1 / Math.sin(Math.PI / 4)), 0, 1, 0);
-        this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.scene.scale(0.05, 0.05, 0.1);
-        this.light.display();
-        this.scene.popMatrix();
-
     };
 
     /*constructor(scene)
