@@ -38,8 +38,9 @@ class LightingScene extends CGFscene
 
 		//Altimetry
 
-		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 0.0 ],
-		[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3,  0.0 ],
+		this.altimetry= [
+		[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 0.0 ],
+		[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 0.0 ],
 		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
 		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
 		[ 0.0 , 0.0 , 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0 ],
@@ -47,11 +48,12 @@ class LightingScene extends CGFscene
 		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
 		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
 		[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 0.0 ]
-	];
+		];
 
 
 		this.terrain = new MyTerrain(this, 8, this.altimetry);
 		this.car_texture = 'red';
+
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 
@@ -95,14 +97,12 @@ class LightingScene extends CGFscene
 		this.hippieMaterial.setSpecular(1, 1, 1, 1);
 		this.hippieMaterial.setShininess(70);
 
-
-
 		//Textures
 
 		this.enableTextures(true);
 
 		this.terrainTexture = new CGFappearance(this);
-		this.terrainTexture.loadTexture("../resources/images/grass.jpg");
+		this.terrainTexture.loadTexture("../resources/images/sand.png");
 		this.terrainTexture.setTextureWrap("REPEAT", "REPEAT");
 
 		this.setUpdatePeriod(30);
@@ -112,12 +112,10 @@ class LightingScene extends CGFscene
 		this.option2 = false;
 		this.speed = 3;
 
-		this.Toogle_Axis = true;
+		this.Toogle_Axis = false;
 		this.lights1 = true;
 		this.lights2 = true;
 		this.lights3 = true;
-
-
 
 	};
 
@@ -229,19 +227,20 @@ class LightingScene extends CGFscene
 		this.materialDefault.apply();
 
 		this.pushMatrix();
-		//this.rotate( - Math.PI / 4, 0, 1, 0);
-		//this.translate(0, 0, - 0.5);
-		//this.test.display();
+			//this.rotate( - Math.PI / 4, 0, 1, 0);
+			//this.translate(0, 0, - 0.5);
+			//this.test.display();
 		this.popMatrix();
-		this.pushMatrix();
-		this.scale(0.7, 0.7, 0.6);
-		//this.test2.display();
+			this.pushMatrix();
+			this.scale(0.7, 0.7, 0.6);
+			//this.test2.display();
 		this.popMatrix();
 
-			this.pushMatrix();
+		this.pushMatrix();
+			this.translate(0, 0, -10);
 			this.redMaterial.apply();
-		this.car.display();
-			this.popMatrix();
+			this.car.display();
+		this.popMatrix();
 
 		this.pushMatrix();
 			this.scale(50, 1, 50);
