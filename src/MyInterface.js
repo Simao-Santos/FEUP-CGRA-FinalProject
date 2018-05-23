@@ -36,6 +36,8 @@ class MyInterface extends CGFinterface {
 		f1.add(this.scene, 'lights2');
 		f1.add(this.scene, 'lights3');
 
+        this.gui.add(this.scene, 'car_texture', ['red', 'blue', 'hippie', 'disneyFan']);
+
 		// add a group of controls (and open/expand by defult)
 
 		// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean

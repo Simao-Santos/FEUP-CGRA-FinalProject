@@ -10,7 +10,7 @@
         super(scene);
 
         this.front = new LowVehicleFront(scene);
-        this.sides = new QuadrangularPrism(scene, 4, 1);
+        this.sides = new QuadrangularPrism(scene, 4, 10);
 		this.floor = new Plane(scene, 50);
         this.triangle = new MySpecialTriangle(scene);
   	};
@@ -47,6 +47,8 @@
         this.triangle.display();
         this.scene.popMatrix();
 
+        this.scene.pushMatrix();
         this.front.display();
+        this.scene.popMatrix();
     }
 }

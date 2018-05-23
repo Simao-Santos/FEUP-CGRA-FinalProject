@@ -18,7 +18,6 @@ class MyTrapezePrism extends CGFobject
 		this.minT = minT || 0;
 		this.maxT = maxT || 1;
 
-
 		this.initBuffers();
 	};
 
@@ -131,9 +130,6 @@ class MyTrapezePrism extends CGFobject
 		Pushes normals
 		*/
 
-		var average_top_angle_right = (Math.PI / 2 - right_beta ) / 2;
-		var average_top_angle_left = (Math.PI / 2 - left_beta ) / 2;
-
 		for(var i = 0; i <= this.stacks; i++) {
 
 			this.normals.push(Math.cos(right_beta), Math.sin(right_beta), 0);
@@ -143,14 +139,14 @@ class MyTrapezePrism extends CGFobject
 			this.normals.push( -Math.cos(left_beta), Math.sin(left_beta), 0);
 
 		}
-/*
-		for(var a = 0; a < 4; a++) {
-			this.normals.push(0, 0, -1);
-		}
 
 		for(var a = 0; a < 4; a++) {
 			this.normals.push(0, 0, 1);
-		}*/
+		}
+
+		for(var a = 0; a < 4; a++) {
+			this.normals.push(0, 0, -1);
+		}
 
 
 		this.primitiveType = this.scene.gl.TRIANGLES;

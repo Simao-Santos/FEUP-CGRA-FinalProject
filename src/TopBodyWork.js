@@ -8,13 +8,15 @@ class TopBodyWork extends CGFobject
 	{
 		super(scene);
 
-        this.topBody = new MyTrapezePrism(scene, 3.8, 0.1, 0.3, 0.1, 10);
+        this.topBody = new MyTrapezePrism(scene, 1.5, 0.2, 0.2, 0.05, 10);
 
 	};
 
     display() {
 
-		this.scene.scale(1, 0.9, 1.9);
+		this.scene.rotate( Math.PI / 2, 0, 1, 0);
+		this.scene.scale(1, 0.8, 4.2);
+		this.scene.translate(0, 0, - 0.5);
         this.topBody.display();
 
     };

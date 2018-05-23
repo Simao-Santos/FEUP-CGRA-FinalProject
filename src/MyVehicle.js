@@ -11,14 +11,15 @@
 
         this.lowerBodyWork = new LowBodyWork(scene);
         this.upperBodyWork = new TopBodyWork(scene);
-        this.wheel = new Wheel(scene);
+        this.wheel_right = new Wheel(scene);
+        this.wheel_left = new Wheel(scene);
+        this.mudguard = new MudGuard(scene);
 
         this.x = 0;
         this.y = 0;
         this.z = 0;
         this.velocity = 0;
         this.angle = 0;
-
 
   	};
 
@@ -34,32 +35,53 @@
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-    this.scene.translate(-0.1, 1.1, -0.95);
+    this.scene.translate(0, 1.1, 0);
     this.upperBodyWork.display();
         this.scene.popMatrix();
-        this.scene.pushMatrix();
+
 
     //Back Right Wheel
+        this.scene.pushMatrix();
     this.scene.translate(-1.2, 0, 0.95);
-    this.wheel.display();
+
+        this.scene.pushMatrix();
+    this.mudguard.display();
+        this.scene.popMatrix();
+    this.wheel_right.display();
         this.scene.popMatrix();
 
     //Front Right Wheel
         this.scene.pushMatrix();
     this.scene.translate(1.2, 0, 0.95);
-    this.wheel.display();
+
+        this.scene.pushMatrix();
+    this.mudguard.display();
+        this.scene.popMatrix();
+
+    this.wheel_right.display();
         this.scene.popMatrix();
 
     //Back Left Wheel
         this.scene.pushMatrix();
-    this.scene.translate(-1.2, 0, -1.15);
-    this.wheel.display();
+    this.scene.translate(-1.2, 0, -0.95);
+    this.scene.rotate(Math.PI, 0, 1, 0);
+
+        this.scene.pushMatrix();
+    this.mudguard.display();
+        this.scene.popMatrix();
+
+    this.wheel_left.display();
         this.scene.popMatrix();
 
     //Front Left Wheel
         this.scene.pushMatrix();
-    this.scene.translate(1.2, 0, -1.15);
-    this.wheel.display();
+    this.scene.translate(1.2, 0, -0.95);
+    this.scene.rotate(Math.PI, 0, 1, 0);
+
+        this.scene.pushMatrix();
+    this.mudguard.display();
+        this.scene.popMatrix();
+    this.wheel_left.display();
         this.scene.popMatrix();
 
         this.scene.popMatrix();
@@ -71,6 +93,13 @@
         this.x += this.velocity * Math.cos(this.angle);
         //this.y += this.velocity;
         this.z += this.velocity * - Math.sin(this.angle);
+
+    };
+
+    updateWheelSpin(deltaTime) {
+
+        this.wheel_left.setWheelSpinAngle(this.velocity / (Math.PI / 4));
+        this.wheel_right.setWheelSpinAngle(-this.velocity / (Math.PI / 4));
 
     };
 

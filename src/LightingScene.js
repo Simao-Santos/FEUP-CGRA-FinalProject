@@ -31,15 +31,27 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.car = new MyVehicle(this);
-		this.test_c = new LowBodyWork(this);
 		this.test2 = new LowVehicleFront(this);
-		this.test = new MySpecialTriangle(this);
+		this.test = new Wheel(this);
 
 		//Test elements
 
+		//Altimetry
 
-		this.terrain = new Plane(this, 50);
+		this.altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 0.0 ],
+		[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3,  0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 2.0, 4.0, 3.5, 2.4, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+		[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 0.0 ]
+	];
 
+
+		this.terrain = new MyTerrain(this, 8, this.altimetry);
+		this.car_texture = 'red';
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 
@@ -54,6 +66,36 @@ class LightingScene extends CGFscene
 		this.materialB.setDiffuse(0.6,0.6,0.6,1);
 		this.materialB.setSpecular(0.8,0.8,0.8,1);
 		this.materialB.setShininess(120);
+
+		this.redMaterial = new CGFappearance(this);
+		this.redMaterial.loadTexture("../resources/images/red.png");
+		this.redMaterial.setAmbient(0.5,0.5,0.5,1);
+		this.redMaterial.setDiffuse(0.8,0.8,0.8,1);
+		this.redMaterial.setSpecular(1, 1, 1, 1);
+		this.redMaterial.setShininess(70);
+
+		this.blueMaterial = new CGFappearance(this);
+		this.blueMaterial.loadTexture("../resources/images/blue.png");
+		this.blueMaterial.setAmbient(0.5,0.5,0.5,1);
+		this.blueMaterial.setDiffuse(0.8,0.8,0.8,1);
+		this.blueMaterial.setSpecular(1, 1, 1, 1);
+		this.blueMaterial.setShininess(70);
+
+		this.mickeyMaterial = new CGFappearance(this);
+		this.mickeyMaterial.loadTexture("../resources/images/mickey_mouse.png");
+		this.mickeyMaterial.setAmbient(0.5,0.5,0.5,1);
+		this.mickeyMaterial.setDiffuse(0.8,0.8,0.8,1);
+		this.mickeyMaterial.setSpecular(1, 1, 1, 1);
+		this.mickeyMaterial.setShininess(70);
+
+		this.hippieMaterial = new CGFappearance(this);
+		this.hippieMaterial.loadTexture("../resources/images/hippie.png");
+		this.hippieMaterial.setAmbient(0.5,0.5,0.5,1);
+		this.hippieMaterial.setDiffuse(0.8,0.8,0.8,1);
+		this.hippieMaterial.setSpecular(1, 1, 1, 1);
+		this.hippieMaterial.setShininess(70);
+
+
 
 		//Textures
 
@@ -74,6 +116,7 @@ class LightingScene extends CGFscene
 		this.lights1 = true;
 		this.lights2 = true;
 		this.lights3 = true;
+
 
 
 	};
@@ -149,6 +192,7 @@ class LightingScene extends CGFscene
 			keysPressed=true;
 			this.car.angle -= (Math.PI * 2) / 100;
 
+
 		}
 		if (keysPressed){
 			console.log(text);
@@ -185,12 +229,17 @@ class LightingScene extends CGFscene
 		this.materialDefault.apply();
 
 		this.pushMatrix();
-		//this.scale(1, 5, 1);
-		//this.rotate( - Math.PI / 2, 1, 0, 0);
-		//this.test_c.display();
+		//this.rotate( - Math.PI / 4, 0, 1, 0);
+		//this.translate(0, 0, - 0.5);
+		//this.test.display();
+		this.popMatrix();
+		this.pushMatrix();
+		this.scale(0.7, 0.7, 0.6);
+		//this.test2.display();
 		this.popMatrix();
 
 			this.pushMatrix();
+			this.redMaterial.apply();
 		this.car.display();
 			this.popMatrix();
 
@@ -229,6 +278,10 @@ class LightingScene extends CGFscene
 
 		this.checkKeys();
 		this.car.updateCoordinates(this.deltaTime);
+
+		if(this.car.velocity != 0) {
+			this.car.updateWheelSpin(currTime);
+		}
 
 	};
 

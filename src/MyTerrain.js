@@ -4,6 +4,7 @@ class MyTerrain extends Plane{
 
         super(scene, nrDivs);
 
+
     };
 
 };
