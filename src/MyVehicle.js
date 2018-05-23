@@ -59,26 +59,26 @@
 
     displayFenders() {
 
-        //Back Right Wheel
+        //Back Right Fender
             this.scene.pushMatrix();
         this.scene.translate(-1.2, 0, 0.95);
         this.fender.display();
             this.scene.popMatrix();
 
-        //Front Right Wheel
+        //Front Right Fender
             this.scene.pushMatrix();
         this.scene.translate(1.2, 0, 0.95);
         this.fender.display();
             this.scene.popMatrix();
 
-        //Back Left Wheel
+        //Back Left Fender
             this.scene.pushMatrix();
         this.scene.translate(-1.2, 0, -0.95);
         this.scene.rotate(Math.PI, 0, 1, 0);
         this.fender.display();
             this.scene.popMatrix();
 
-        //Front Left Wheel
+        //Front Left Fender
             this.scene.pushMatrix();
         this.scene.translate(1.2, 0, -0.95);
         this.scene.rotate(Math.PI, 0, 1, 0);

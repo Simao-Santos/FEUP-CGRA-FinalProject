@@ -241,7 +241,7 @@ class LightingScene extends CGFscene
 		this.popMatrix();
 
 			this.pushMatrix();
-			//this.mickeyMaterial.apply();
+		this.mickeyMaterial.apply();
 		this.car.display();
 			this.popMatrix();
 

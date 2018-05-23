@@ -44,10 +44,10 @@ class MyTrapezoid extends CGFobject
 		]
 
 		this.texCoords = [
-			this.minS, this.minT,
 			this.minS, this.maxT,
+			this.minS, this.minT,
 			this.maxS, this.minT,
-			this.minS, this.maxT
+			this.maxS, this.maxT
 		];
 
 
