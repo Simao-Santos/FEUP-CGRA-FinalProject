@@ -117,6 +117,11 @@ class LightingScene extends CGFscene
 		this.lights2 = true;
 		this.lights3 = true;
 
+		this.keyW = false;
+		this.keyA = false;
+		this.keyD = false;
+		this.keyS = false;
+
 	};
 
 	initCameras()
@@ -169,27 +174,26 @@ class LightingScene extends CGFscene
 		{
 			text+=" W ";
 			keysPressed=true;
-			this.car.velocity += 0.01 * this.speed;
+			this.keyW = true;
 		}
 		if (this.gui.isKeyPressed("KeyS"))
 		{
 			text+=" S ";
 			keysPressed=true;
-			this.car.velocity -= 0.01 * this.speed;
+			this.keyS = true;
 
 		}
 		if (this.gui.isKeyPressed("KeyA"))
 		{
 			text+=" A ";
 			keysPressed=true;
-			this.car.angle += (Math.PI * 2) / 100;
+			this.keyA = true;
 		}
 		if (this.gui.isKeyPressed("KeyD"))
 		{
 			text+=" D ";
 			keysPressed=true;
-			this.car.angle -= (Math.PI * 2) / 100;
-
+			this.keyD = true;
 
 		}
 		if (keysPressed){
@@ -246,11 +250,42 @@ class LightingScene extends CGFscene
 			this.scale(50, 1, 50);
 			this.rotate(-Math.PI/2, 1, 0, 0);
 			this.terrainTexture.apply();
-			//this.terrain.display();
+			this.terrain.display();
 		this.popMatrix();
 
 
 	};
+
+	updateMovement(currTime) {
+		if(this.keyW) {
+			this.keyW = false;
+			this.car.velocity += 0.01 * this.speed;
+		}
+		if(this.keyS) {
+			this.keyS = false;
+			this.car.velocity -= 0.01 * this.speed;
+		}
+
+		if(!this.keyA && !this.keyD){
+
+			if(this.car.wheel_front.stir_angle > 0)
+			this.car.wheel_front.setWheelStirAngle( -(Math.PI / 2) / 25);
+
+			if(this.car.wheel_front.stir_angle < 0)
+			this.car.wheel_front.setWheelStirAngle((Math.PI / 2) / 25);
+
+		}
+
+		if(this.keyA) {
+			this.keyA = false;
+			this.car.wheel_front.setWheelStirAngle((Math.PI / 2) / 50);
+		}
+		if(this.keyD) {
+			this.keyD = false;
+			this.car.wheel_front.setWheelStirAngle( -(Math.PI / 2) / 50);
+		}
+
+	}
 
 	update(currTime) {
 
@@ -276,13 +311,17 @@ class LightingScene extends CGFscene
 
 
 		this.checkKeys();
-		this.car.updateCoordinates(this.deltaTime);
+		this.updateMovement();
 
 		if(this.car.velocity != 0) {
 			this.car.updateWheelSpin(currTime);
+			this.car.updateCarAngle(this.deltaTime);
 		}
 
+		this.car.updateCoordinates(this.deltaTime);
+
 	};
+
 
 
 };

@@ -11,8 +11,8 @@
 
         this.lowerBodyWork = new LowBodyWork(scene);
         this.upperBodyWork = new TopBodyWork(scene);
-        this.wheel_right = new Wheel(scene);
-        this.wheel_left = new Wheel(scene);
+        this.wheel_back = new Wheel(scene);
+        this.wheel_front = new Wheel(scene);
         this.fender = new MyFender(scene);
         this.bigLight = new MyRoundLight(scene);
         this.smallLight = new MySmallLight(scene);
@@ -92,27 +92,25 @@
         //Back Right Wheel
             this.scene.pushMatrix();
         this.scene.translate(-1.2, 0, 0.95);
-        this.wheel_right.display();
+        this.wheel_back.display();
             this.scene.popMatrix();
 
         //Front Right Wheel
             this.scene.pushMatrix();
         this.scene.translate(1.2, 0, 0.95);
-        this.wheel_right.display();
+        this.wheel_front.display();
             this.scene.popMatrix();
 
         //Back Left Wheel
             this.scene.pushMatrix();
-        this.scene.translate(-1.2, 0, -0.95);
-        this.scene.rotate(Math.PI, 0, 1, 0);
-        this.wheel_left.display();
+        this.scene.translate(-1.2, 0, -1.15);
+        this.wheel_back.display();
             this.scene.popMatrix();
 
         //Front Left Wheel
             this.scene.pushMatrix();
-        this.scene.translate(1.2, 0, -0.95);
-        this.scene.rotate(Math.PI, 0, 1, 0);
-        this.wheel_left.display();
+        this.scene.translate(1.2, 0, -1.15);
+        this.wheel_front.display();
             this.scene.popMatrix();
 
     }
@@ -149,17 +147,19 @@
     updateCoordinates(deltaTime) {
 
         this.x += this.velocity * Math.cos(this.angle);
-        this.z += this.velocity * - Math.sin(this.angle);
+        this.z += this.velocity * -Math.sin(this.angle);
 
     };
 
     updateWheelSpin(deltaTime) {
 
-        this.wheel_left.setWheelSpinAngle(this.velocity / (Math.PI / 4));
-        this.wheel_right.setWheelSpinAngle(-this.velocity / (Math.PI / 4));
+        this.wheel_back.setWheelSpinAngle(this.velocity / (Math.PI / 4));
+        this.wheel_front.setWheelSpinAngle(this.velocity / (Math.PI / 4));
 
     };
 
-
+    updateCarAngle(deltaTime) {
+        this.angle += this.wheel_front.stir_angle * this.velocity * 0.4;
+    }
 
  }
