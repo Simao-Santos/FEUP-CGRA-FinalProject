@@ -1,9 +1,9 @@
 /**
- * MudGuard
+ * Fender
  * @constructor
  */
 
-  class MudGuard extends CGFobject
+  class MyFender extends CGFobject
   {
   	constructor(scene)
   	{

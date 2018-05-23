@@ -18,9 +18,11 @@ serialInclude([
 	'LowBodyWork.js',
 	'TopBodyWork.js',
 	'LowVehicleFront.js',
+	'MyRoundLight.js',
+	'MySmallLight.js',
 	'Wheel.js',
-	'MudGuard.js',
-	'QuadrangularPrism.js',
+	'MyFender.js',
+	'MyBoxSides.js',
 	'MySemisphere.js',
 	'MySpecialTriangle.js',
 

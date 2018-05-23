@@ -1,4 +1,4 @@
-var degToRad = Math.PI / 180.0;
+	var degToRad = Math.PI / 180.0;
 
 var BOARD_WIDTH = 6.0;
 var BOARD_HEIGHT = 4.0;
@@ -32,7 +32,7 @@ class LightingScene extends CGFscene
 		// Scene elements
 		this.car = new MyVehicle(this);
 		this.test2 = new LowVehicleFront(this);
-		this.test = new Wheel(this);
+		this.test = new LowBodyWork(this);
 
 		//Test elements
 
@@ -51,7 +51,7 @@ class LightingScene extends CGFscene
 
 
 		this.terrain = new MyTerrain(this, 8, this.altimetry);
-		this.car_texture = 'red';
+		this.car_texture = 'mickey_mouse';
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 
@@ -231,7 +231,9 @@ class LightingScene extends CGFscene
 		this.pushMatrix();
 		//this.rotate( - Math.PI / 4, 0, 1, 0);
 		//this.translate(0, 0, - 0.5);
-		//this.test.display();
+		//this.mickeyMaterial.apply();
+
+	//	this.test.display();
 		this.popMatrix();
 		this.pushMatrix();
 		this.scale(0.7, 0.7, 0.6);
@@ -239,7 +241,7 @@ class LightingScene extends CGFscene
 		this.popMatrix();
 
 			this.pushMatrix();
-			this.redMaterial.apply();
+			//this.mickeyMaterial.apply();
 		this.car.display();
 			this.popMatrix();
 
@@ -247,7 +249,7 @@ class LightingScene extends CGFscene
 			this.scale(50, 1, 50);
 			this.rotate(-Math.PI/2, 1, 0, 0);
 			this.terrainTexture.apply();
-			this.terrain.display();
+			//this.terrain.display();
 		this.popMatrix();
 
 
