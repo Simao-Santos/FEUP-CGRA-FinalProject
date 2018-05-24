@@ -5,7 +5,7 @@
 
   class LowBodyWork extends CGFobject
   {
-  	constructor(scene)
+  	constructor(scene, vehicleAppearances, index)
   	{
         super(scene);
 
@@ -13,11 +13,29 @@
         this.sides = new MyBoxSides(scene);
 		this.floor = new Plane(scene, 50);
         this.triangle = new MySpecialTriangle(scene);
+
+        this.BotCarAppearancesList = {
+            'blackBotText' : 0,
+            'whiteBotText' : 1,
+            'goldBotText' : 2,
+            'redBotText' : 3,
+            'disneyBotText' : 4
+        }
+
+        this.vehicleAppearances = vehicleAppearances;
+        this.index = index;
+        this.disneyflag = false;
+
+        this.currBotAppearance = this.BotCarAppearancesList[this.index];
+
   	};
 
 
 
     display() {
+
+        this.scene.pushMatrix();
+        this.vehicleAppearances[this.currBotAppearance].apply();
 
         this.scene.pushMatrix();
         this.scene.scale(4.2, 1.1, 1.9);
@@ -49,5 +67,18 @@
         this.scene.pushMatrix();
         this.front.display();
         this.scene.popMatrix();
+
+        this.scene.popMatrix();
+    }
+
+    update(index) {
+        if(index == 'disneyTopText') {
+            this.currBotAppearance = this.BotCarAppearancesList['blackTopText'];
+            this.disneyflag = true;
+        }
+        else {
+            this.currBotAppearance = this.BotCarAppearancesList[index];
+            this.disneyflag = false;
+        }
     }
 }

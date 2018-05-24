@@ -19,16 +19,6 @@ class MyInterface extends CGFinterface {
 		// call CGFinterface init
 		super.init(application);
 
-		// init GUI. For more information on the methods, check:
-		//  http://workshop.chromeexperiments.com/examples/gui
-
-
-		// add a button:
-		// the first parameter is the object that is being controlled (in this case the scene)
-		// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
-		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); };
-
-
         this.gui.add(this.scene, 'Toogle_Axis');
 
 		var f1 = this.gui.addFolder('Toggle_Lights');
@@ -36,22 +26,12 @@ class MyInterface extends CGFinterface {
 		f1.add(this.scene, 'lights2');
 		f1.add(this.scene, 'lights3');
 
-        this.gui.add(this.scene, 'car_texture', ['red', 'blue', 'hippie', 'disneyFan']);
+        this.gui.add(this.scene, 'topCar_texture', ['blackTopText', 'whiteTopText', 'goldTopText', 'redTopText', 'disneyTopText']);
+        this.gui.add(this.scene, 'botCar_texture', ['blackBotText', 'whiteBotText', 'goldBotText', 'redBotText', 'disneyBotText']);
+        this.gui.add(this.scene, 'wheels_texture', ['blackWheelText', 'whiteWheelText', 'goldWheelText', 'redWheelText', 'disneyWheelText']);
+        this.gui.add(this.scene, 'fenders_texture', ['blackFenderText', 'whiteFenderText', 'goldFenderText', 'redFenderText', 'disneyFenderText']);
 
-		// add a group of controls (and open/expand by defult)
-
-		// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-		// e.g. this.option1=true; this.option2=false;
-
-		//group.add(this.scene, 'Lights');
-		//group.add(this.scene, 'option2');
-
-		// add a slider
-		// must be a numeric variable of the scene, initialized in scene.init e.g.
-		// this.speed=3;
-		// min and max values can be specified as parameters
-
-		//this.gui.add(this.scene, 'speed', -5, 5);
+		this.gui.add(this.scene, 'framespersec', 10, 100);
 
         this.initKeys();
         return true;

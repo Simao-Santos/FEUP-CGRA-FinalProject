@@ -5,7 +5,7 @@
 
   class Wheel extends CGFobject
   {
-  	constructor(scene)
+  	constructor(scene, vehicleAppearances, index)
   	{
         super(scene);
 
@@ -16,10 +16,19 @@
         this.spin_angle = 0;
         this.stir_angle = 0;
 
-        this.materialDefault = new CGFappearance(scene);
-        this.wheelTexture = new CGFappearance(scene);
-        this.wheelTexture.loadTexture("../resources/images/donald.png");
+        this.WheelCarAppearancesList = {
+            'blackWheelText' : 0,
+            'whiteWheelText' : 1,
+            'goldWheelText' : 2,
+            'redWheelText' : 3,
+            'disneyWheelText' : 4
+        }
 
+        this.vehicleAppearances = vehicleAppearances;
+		this.index = index;
+		this.disneyflag = false;
+
+		this.currWheelAppearance = this.WheelCarAppearancesList[this.index];
   	};
 
     display()
@@ -30,22 +39,20 @@
 
             this.scene.pushMatrix();
         this.scene.scale(0.5,0.5,0.2);
-        this.materialDefault.apply();
-
+        this.vehicleAppearances[0].apply();
         this.tire.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
         this.scene.scale(0.5, 0.5, 1);
         this.scene.translate(0, 0, 0.2);
-        this.wheelTexture.apply();
+        this.vehicleAppearances[this.currWheelAppearance].apply();
         this.front.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
         this.scene.scale(0.5, 0.5, 1);
         this.scene.rotate(Math.PI, 0, 1, 0);
-        this.wheelTexture.apply();
         this.back.display();
             this.scene.popMatrix();
 
@@ -53,9 +60,11 @@
 
     };
 
-    update () {
+    update(index) {
 
-    };
+		this.currWheelAppearance = this.WheelCarAppearancesList[index];
+
+	}
 
     setWheelSpinAngle(angle) {
 

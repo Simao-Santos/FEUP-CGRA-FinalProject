@@ -4,7 +4,7 @@
  */
 class MyTrapezoid extends CGFobject
 {
-	constructor(scene, midLength, rightDiff, leftDiff, topDepth, minS, maxS, minT, maxT)
+	constructor(scene, midLength, rightDiff, leftDiff, topDepth, height, minS, maxS, minT, maxT)
 	{
 		super(scene);
 
@@ -16,6 +16,7 @@ class MyTrapezoid extends CGFobject
         this.rightDiff = rightDiff || 0;
         this.leftDiff = leftDiff || 0;
         this.topDepth = topDepth || 0;
+		this.height = height || 1;
 
 		this.initBuffers();
 	};
@@ -26,8 +27,8 @@ class MyTrapezoid extends CGFobject
 
 		this.vertices = [
 		- halfMidLength - this.leftDiff, 0, 0,
-		- halfMidLength, 1, -this.topDepth,
-		halfMidLength, 1, -this.topDepth,
+		- halfMidLength, this.height, -this.topDepth,
+		halfMidLength, this.height, -this.topDepth,
 		halfMidLength + this.rightDiff, 0, 0
 		];
 
