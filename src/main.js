@@ -26,6 +26,11 @@ serialInclude([
 	'MyBoxSides.js',
 	'MySemisphere.js',
 	'MySpecialTriangle.js',
+	'MyCrane.js',
+	'MyCraneBase.js',
+	'MyCraneMagnet.js',
+	'MyCraneMainArm.js',
+	'MyCraneSecondArm.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);

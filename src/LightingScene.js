@@ -37,6 +37,14 @@ class LightingScene extends CGFscene
 		this.terrainTexture.loadTexture("../resources/images/sand.png");
 		this.terrainTexture.setTextureWrap("REPEAT", "REPEAT");
 
+		this.disneyText = new CGFappearance(this);
+		this.disneyText.loadTexture("../resources/images/final_mickey.png");
+		this.disneyText.setAmbient(0.5, 0.5, 0.5, 1);
+		this.disneyText.setDiffuse(0.8, 0.8, 0.8, 1);
+		this.disneyText.setSpecular(0.3, 0.3, 0.3, 1);
+		this.disneyText.setShininess(150);
+
+
 		this.topCar_texture= 'whiteTopText';
 		this.botCar_texture = 'whiteBotText';
 		this.wheels_texture = 'disneyWheelText';
@@ -45,16 +53,20 @@ class LightingScene extends CGFscene
 		// Scene elements
 		this.car = new MyVehicle(this, this.topCar_texture, this.botCar_texture, this.wheels_texture, this.fenders_texture);
 
+		 this.crane = new MyCrane(this);
+		this.testPrism = new MyCraneMagnet(this);
+
+
 		//Altimetry
 
 		this.altimetry= [
 		[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 10.0 ],
 		[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 10.0 ],
-		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
-		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
-		[ 0.0 , 0.0 , 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 10.0 ],
-		[ 0.0 , 0.0 , 2.0, 4.0, 3.5, 2.4, 0.0, 0.0, 10.0 ],
-		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
+		[ 3.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
+		[ 3.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
+		[ 3.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
+		[ 3.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
+		[ 3.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
 		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
 		[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 10.0 ]
 		];
@@ -83,6 +95,9 @@ class LightingScene extends CGFscene
 		this.keyA = false;
 		this.keyD = false;
 		this.keyS = false;
+		this.keyF = false;
+
+		this.startMovement = false;
 
 
 
@@ -160,6 +175,13 @@ class LightingScene extends CGFscene
 			this.keyD = true;
 
 		}
+		if (this.gui.isKeyPressed("KeyF"))
+		{
+			text+=" F ";
+			keysPressed=true;
+			this.keyF = true;
+
+		}
 		if (keysPressed){
 			console.log(text);
 
@@ -195,20 +217,21 @@ class LightingScene extends CGFscene
 		this.materialDefault.apply();
 
 		this.pushMatrix();
-			this.translate(0, 0, -10);
-			//this.mickeyMaterial.apply();
+			this.translate(0, 0, -4);
 			this.car.display();
 		this.popMatrix();
-
-		this.pushMatrix();
-			this.scale(50, 1, 50);
-			this.rotate(-Math.PI/2, 1, 0, 0);
-			this.terrainTexture.apply();
-			this.terrain.display();
-		this.popMatrix();
+		//
+		// this.pushMatrix();
+		// 	this.scale(50, 1, 50);
+		// 	this.rotate(-Math.PI/2, 1, 0, 0);
+		// 	this.terrainTexture.apply();
+		// 	this.terrain.display();
+		// this.popMatrix();
 
 		//TESTING
-		console.log(this.framespersec);
+		this.materialDefault.apply();
+		this.crane.display();
+		// this.testPrism.display();
 
 
 	};
@@ -282,6 +305,13 @@ class LightingScene extends CGFscene
 		this.car.updateTextures(this.topCar_texture, this.botCar_texture, this.wheels_texture, this.fenders_texture);
 
 		this.setUpdatePeriod(1000/this.framespersec);
+
+		if(this.keyF)
+			this.startMovement = true;
+
+		if(this.crane.rotationAngle <= Math.PI && this.startMovement == true){
+			this.crane.updateRotationAngle(this.deltaTime, 0.05);
+		}
 
 	};
 
