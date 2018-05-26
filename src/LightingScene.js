@@ -37,14 +37,6 @@ class LightingScene extends CGFscene
 		this.terrainTexture.loadTexture("../resources/images/sand.png");
 		this.terrainTexture.setTextureWrap("REPEAT", "REPEAT");
 
-		this.disneyText = new CGFappearance(this);
-		this.disneyText.loadTexture("../resources/images/final_mickey.png");
-		this.disneyText.setAmbient(0.5, 0.5, 0.5, 1);
-		this.disneyText.setDiffuse(0.8, 0.8, 0.8, 1);
-		this.disneyText.setSpecular(0.3, 0.3, 0.3, 1);
-		this.disneyText.setShininess(150);
-
-
 		this.topCar_texture= 'whiteTopText';
 		this.botCar_texture = 'whiteBotText';
 		this.wheels_texture = 'disneyWheelText';
@@ -53,7 +45,7 @@ class LightingScene extends CGFscene
 		// Scene elements
 		this.car = new MyVehicle(this, this.topCar_texture, this.botCar_texture, this.wheels_texture, this.fenders_texture);
 
-		 this.crane = new MyCrane(this);
+		this.crane = new MyCrane(this);
 		this.testPrism = new MyCraneMagnet(this);
 
 
@@ -97,7 +89,29 @@ class LightingScene extends CGFscene
 		this.keyS = false;
 		this.keyF = false;
 
-		this.startMovement = false;
+		this.carLifted = false;
+		this.endState = false;
+		this.animationStatus = false;
+
+		//Crane Animation
+
+		this.animationSequence = ['FirstSpin', 'DescendArm', 'GrabCar', 'AscendArm', 'SpinBack', 'DescendArm', 'ReleaseCar', 'AscendArm', 'Stop'];
+		this.animationCounter = 0;
+
+		this.animationStatesList = {
+			'Stop' : 0,
+			'FirstSpin' : 1,
+			'SpinBack' : 2,
+			'AscendArm' : 3,
+			'DescendArm' : 4,
+			'GrabCar' : 5,
+			'ReleaseCar' : 6
+		}
+
+		this.currAnimationState = this.animationStatesList['Stop'];
+
+		this.sideRotationAngle = Math.PI / 30;
+		this.sideRotationMaxAngle = Math.PI;
 
 
 
@@ -217,21 +231,40 @@ class LightingScene extends CGFscene
 		this.materialDefault.apply();
 
 		this.pushMatrix();
-			this.translate(0, 0, -4);
-			this.car.display();
+		this.scale(50, 1, 50);
+		this.rotate(-Math.PI/2, 1, 0, 0);
+		this.terrainTexture.apply();
+		this.terrain.display();
 		this.popMatrix();
-		//
-		// this.pushMatrix();
-		// 	this.scale(50, 1, 50);
-		// 	this.rotate(-Math.PI/2, 1, 0, 0);
-		// 	this.terrainTexture.apply();
-		// 	this.terrain.display();
-		// this.popMatrix();
+
+		if(this.carLifted) {
+
+			this.pushMatrix();
+			this.crane.display(this.car);
+			// this.testPrism.display(this.car);
+
+			this.popMatrix();
+
+		}
+		else {
+
+			this.pushMatrix();
+			this.car.display();
+			this.popMatrix();
+
+			this.pushMatrix();
+			// this.testPrism.display();
+
+			this.crane.display();
+			this.popMatrix();
+
+		}
+
+
 
 		//TESTING
-		this.materialDefault.apply();
-		this.crane.display();
-		// this.testPrism.display();
+		// this.materialDefault.apply();
+		// this.crane.display(this.car);
 
 
 	};
@@ -293,26 +326,131 @@ class LightingScene extends CGFscene
 
 
 		this.checkKeys();
-		this.updateMovement();
 
-		if(this.car.velocity != 0) {
-			this.car.updateWheelSpin(this.deltaTime);
-			this.car.updateCarAngle(this.deltaTime);
-		}
+		if(!this.animationStatus) {
+
+			this.updateMovement();
+
+			if(this.car.velocity != 0) {
+				this.car.updateWheelSpin(this.deltaTime);
+				this.car.updateCarAngle(this.deltaTime);
+			}
 
 		this.car.updateCoordinates(this.deltaTime);
+		}
 
 		this.car.updateTextures(this.topCar_texture, this.botCar_texture, this.wheels_texture, this.fenders_texture);
 
 		this.setUpdatePeriod(1000/this.framespersec);
 
-		if(this.keyF)
-			this.startMovement = true;
+		if(this.keyF){
+			this.currAnimationState = this.animationStatesList[this.animationSequence[0]];
+			this.keyF = false;
+			this.animationStatus = true;
+		}
 
-		if(this.crane.rotationAngle <= Math.PI && this.startMovement == true){
-			this.crane.updateRotationAngle(this.deltaTime, 0.05);
+		if(this.endState) {
+			this.endState = false;
+			this.animationCounter++;
+			this.currAnimationState = this.animationStatesList[this.animationSequence[this.animationCounter]]
+		}
+
+		if(this.animationSequence[this.animationCounter] == 'Stop') {
+			this.animationCounter = 0;
+			this.endState = false;
+			this.animationStatus = false;
+		}
+
+		this.craneAnimationSelect(this.deltaTime);
+	};
+
+	updateCarEndCoordiantes() {
+		this.car.x = -this.car.x;
+		this.car.z = -this.car.z;
+		this.car.angle += this.sideRotationMaxAngle;
+	}
+
+
+	craneAnimationSelect(deltaTime) {
+
+		switch(this.currAnimationState) {
+			case 1:
+				this.rotateCraneToGrab(deltaTime);
+				break;
+			case 2:
+				this.rotateCraneToRelease(deltaTime);
+				break;
+			case 3:
+				this.ascendCraneArm(deltaTime);
+				break;
+			case 4:
+				this.descendCraneArm(deltaTime);
+				break;
+			case 5:
+				this.grabCar(deltaTime);
+				break;
+			case 6:
+				this.releaseCar(deltaTime);
+				this.updateCarEndCoordiantes();
+				break;
+			default:
+				break;
+		}
+	};
+
+	rotateCraneToGrab(deltaTime) {
+
+		this.crane.updateRotationAngle(deltaTime, this.sideRotationAngle);
+
+		if(this.crane.rotationAngle >= this.sideRotationMaxAngle) {
+			this.endState = true;
+		}
+	};
+
+	rotateCraneToRelease(deltaTime) {
+
+		this.crane.updateRotationAngle(deltaTime, -this.sideRotationAngle);
+
+		if(this.crane.rotationAngle <= 0) {
+			this.endState = true;
+		}
+	}
+
+	descendCraneArm(deltaTime) {
+
+		this.crane.secondArm.updateRotationAngle(deltaTime, Math.PI / 20);
+		this.crane.secondArm.magnetAndWire.updateCompensationAngle(deltaTime, Math.PI / 20);
+
+		if(this.crane.secondArm.rotationAngle >= Math.PI * 5 / 8){
+			this.endState = true;
 		}
 
 	};
+
+	ascendCraneArm(deltaTime) {
+
+		this.crane.secondArm.updateRotationAngle(deltaTime, -Math.PI / 20);
+		this.crane.secondArm.magnetAndWire.updateCompensationAngle(deltaTime, -Math.PI / 20);
+
+		if(this.crane.secondArm.rotationAngle <= Math.PI / 4){
+			this.endState = true;
+		}
+
+	};
+
+	grabCar(deltaTime) {
+
+		this.carLifted = true;
+		this.endState = true;
+
+	}
+
+	releaseCar(deltaTime) {
+
+		this.carLifted = false;
+		this.endState = true;
+	}
+
+
 
 };
