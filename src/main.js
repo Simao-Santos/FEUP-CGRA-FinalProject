@@ -31,6 +31,8 @@ serialInclude([
 	'MyCraneMagnet.js',
 	'MyCraneMainArm.js',
 	'MyCraneSecondArm.js',
+	'Road.js',
+	'Buildings.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);

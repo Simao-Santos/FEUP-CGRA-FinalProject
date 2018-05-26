@@ -44,7 +44,8 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.car = new MyVehicle(this, this.topCar_texture, this.botCar_texture, this.wheels_texture, this.fenders_texture);
-
+		this.road = new Road(this);
+		this.home = new Buildings(this);
 		this.crane = new MyCrane(this);
 		this.testPrism = new MyCraneMagnet(this);
 
@@ -52,15 +53,15 @@ class LightingScene extends CGFscene
 		//Altimetry
 
 		this.altimetry= [
-		[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 10.0 ],
-		[ 2.0 , 3.0 , 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 10.0 ],
-		[ 3.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
-		[ 3.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
-		[ 3.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
-		[ 3.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
-		[ 3.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
-		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0 ],
-		[ 2.0 , 3.0 , 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 10.0 ]
+		[ 0.0 , 0.0 , 4.0, 4.0, 5.0, 6.0, 6.0, 8.0, 7.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 7.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 7.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 7.0 ],
+		[ 0.0 , -3.0 , -2.0, 0.0, 0.0, 0.0, 0.0, 3.0, 7.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 7.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 7.0 ],
+		[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 7.0 ],
+		[ 0.0 , 1.3 , 2.3, 2.4, 2.5, 1.0, 2.0, 5.0, 7.0 ]
 		];
 
 
@@ -231,15 +232,25 @@ class LightingScene extends CGFscene
 		this.materialDefault.apply();
 
 		this.pushMatrix();
-		this.scale(50, 1, 50);
-		this.rotate(-Math.PI/2, 1, 0, 0);
-		this.terrainTexture.apply();
-		this.terrain.display();
+			this.scale(50, 1, 50);
+			this.rotate(-Math.PI/2, 1, 0, 0);
+			this.terrainTexture.apply();
+			this.terrain.display();
 		this.popMatrix();
+
+		this.road.display();
+
+	this.pushMatrix();
+		this.translate(0, 0, -17.5);
+    	this.home.display();
+	this.popMatrix();
+	
+	this.home.display();
 
 		if(this.carLifted) {
 
 			this.pushMatrix();
+			//this.rotate(Math.PI, 0, 1, 0);
 			this.crane.display(this.car);
 			// this.testPrism.display(this.car);
 
@@ -255,6 +266,7 @@ class LightingScene extends CGFscene
 			this.pushMatrix();
 			// this.testPrism.display();
 
+			//this.rotate(Math.PI, 0, 1, 0);
 			this.crane.display();
 			this.popMatrix();
 
