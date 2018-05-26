@@ -53,6 +53,7 @@ class MyCrane extends CGFobject
             this.scene.popMatrix();
             this.scene.popMatrix();
 
+            
     };
 
     updateRotationAngle(deltaTime, angle) {
