@@ -28,14 +28,13 @@ class MyCrane extends CGFobject
 
     display(pulledCar) {
 
-            2this.scene.pushMatrix();
+            this.scene.pushMatrix();
         this.rustyText.apply();
         this.base.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
          this.scene.rotate(this.rotationAngle, 0, 1, 0);
-
 
             this.scene.pushMatrix();
         this.scene.translate(0,1,0);
