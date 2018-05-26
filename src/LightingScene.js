@@ -260,13 +260,6 @@ class LightingScene extends CGFscene
 
 		}
 
-
-
-		//TESTING
-		// this.materialDefault.apply();
-		// this.crane.display(this.car);
-
-
 	};
 
 	updateMovement(currTime) {
