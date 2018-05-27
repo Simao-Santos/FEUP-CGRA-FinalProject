@@ -35,15 +35,14 @@ class MyCraneMagnet extends CGFobject
         if(pulledCar != undefined){
 
             this.scene.pushMatrix();
-            // this.scene.translate(pulledCar.x, pulledCar.y, pulledCar.z);
             this.scene.translate(0, -4.9, -2.6);
             this.scene.rotate(Math.PI / 2, 1, 0, 0);
             this.scene.rotate(Math.PI, 0, 1, 0);
-            // this.scene.translate(-pulledCar.x, -pulledCar.y, -pulledCar.z);
             pulledCar.display();
             this.scene.popMatrix();
 
         }
+        
         this.rustyText.apply();
             this.scene.pushMatrix();
         this.scene.translate(0, 0, 0.1);

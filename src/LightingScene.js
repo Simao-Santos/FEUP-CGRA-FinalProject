@@ -48,6 +48,7 @@ class LightingScene extends CGFscene
 		this.home = new Buildings(this);
 		this.crane = new MyCrane(this);
 		this.testPrism = new MyCraneMagnet(this);
+		this.criticArea = new Plane(this, 30);
 
 
 		//Altimetry
@@ -247,13 +248,21 @@ class LightingScene extends CGFscene
 	
 	this.home.display();
 
+		this.pushMatrix();
+		this.translate(10, 0, 0);
+
+		this.pushMatrix();
+		this.translate(0, 0.01, 5.5);
+		this.scale(5, 0, 4);
+		this.rotate(-Math.PI/2, 1, 0, 0);
+		this.criticArea.display();
+		this.popMatrix();
+
 		if(this.carLifted) {
 
 			this.pushMatrix();
 			//this.rotate(Math.PI, 0, 1, 0);
 			this.crane.display(this.car);
-			// this.testPrism.display(this.car);
-
 			this.popMatrix();
 
 		}
@@ -271,6 +280,8 @@ class LightingScene extends CGFscene
 			this.popMatrix();
 
 		}
+
+		this.popMatrix();
 
 	};
 
@@ -348,10 +359,10 @@ class LightingScene extends CGFscene
 
 		this.setUpdatePeriod(1000/this.framespersec);
 
-		if(this.keyF){
+		this.verifyCarPostion();
+
+		if(this.animationStatus){
 			this.currAnimationState = this.animationStatesList[this.animationSequence[0]];
-			this.keyF = false;
-			this.animationStatus = true;
 		}
 
 		if(this.endState) {
@@ -392,10 +403,10 @@ class LightingScene extends CGFscene
 				this.descendCraneArm(deltaTime);
 				break;
 			case 5:
-				this.grabCar(deltaTime);
+				this.grabCar();
 				break;
 			case 6:
-				this.releaseCar(deltaTime);
+				this.releaseCar();
 				this.updateCarEndCoordiantes();
 				break;
 			default:
@@ -443,17 +454,24 @@ class LightingScene extends CGFscene
 
 	};
 
-	grabCar(deltaTime) {
+	grabCar() {
 
 		this.carLifted = true;
 		this.endState = true;
 
 	}
 
-	releaseCar(deltaTime) {
+	releaseCar() {
 
 		this.carLifted = false;
 		this.endState = true;
+	}
+
+	verifyCarPostion() {
+
+		if(this.car.x > 13 && this.car.x < 17 && this.car.z > 4.5 && this.car.z < 6.5)
+			this.animationStatus = true;
+
 	}
 
 

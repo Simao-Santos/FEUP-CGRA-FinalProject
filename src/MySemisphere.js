@@ -18,7 +18,7 @@ class MySemisphere extends CGFobject
 
 	initBuffers()
 	{
-        
+
         var alpha = 2 * Math.PI / this.slices;
         var beta = Math.PI / 2 / this.stacks;
 		this.slices = this.display_slices;
