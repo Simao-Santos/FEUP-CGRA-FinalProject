@@ -11,10 +11,9 @@ class MyRoundLight extends CGFobject
         this.light = new MyCylinder(scene, 30, 30);
 
         this.texture = new CGFappearance(this.scene);
-        this.texture.loadTexture("../resources/images/biglight.png");
         this.texture.setAmbient(0.5, 0.5, 0.5, 1);
-        this.texture.setDiffuse(1, 1, 1, 1);
-        this.texture.setSpecular(1, 1, 1, 1);
+        this.texture.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.texture.setSpecular(0.5, 0.5, 0.5, 1);
         this.texture.setShininess(300);
 
 

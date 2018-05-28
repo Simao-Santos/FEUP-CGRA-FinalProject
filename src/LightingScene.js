@@ -295,6 +295,8 @@ class LightingScene extends CGFscene
 
 		}
 
+		this.popMatrix();
+
 	};
 
 	//Updates the car movement values according to the kays that are being pressed at the moment
@@ -417,10 +419,10 @@ class LightingScene extends CGFscene
 				this.descendCraneArm(deltaTime);
 				break;
 			case 5:
-				this.grabCar(deltaTime);
+				this.grabCar();
 				break;
 			case 6:
-				this.releaseCar(deltaTime);
+				this.releaseCar();
 				this.updateCarEndCoordiantes();
 				break;
 			default:
@@ -495,6 +497,8 @@ class LightingScene extends CGFscene
 		}
 	}
 
+		if(this.car.x > 13 && this.car.x < 17 && this.car.z > 4.5 && this.car.z < 6.5)
+			this.animationStatus = true;
 
 
 };
