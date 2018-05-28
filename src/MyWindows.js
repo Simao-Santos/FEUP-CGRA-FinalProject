@@ -25,7 +25,7 @@ class MyWindows extends CGFobject
         this.windowAppearance.setShininess(120);
 
     };
-
+    //Windows built specifically for the car, using only trapezoids (1 at the front, 1 at the back, 2 on each of the sides)
     display() {
 
             this.scene.pushMatrix();

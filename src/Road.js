@@ -9,7 +9,7 @@ class Road extends CGFobject{
         this.road1Texture = new CGFappearance(this.scene);
 		this.road1Texture.loadTexture("../resources/images/Road.png");
         this.road1Texture.setTextureWrap("REPEAT", "REPEAT");
-        
+
 
         this.roadcorner = new Plane(this.scene, 50);
 
@@ -18,6 +18,7 @@ class Road extends CGFobject{
         this.roadcornerTexture.setTextureWrap("REPEAT", "REPEAT");
     };
 
+	//Road present in the terrain, made using planes
     display(){
 
     var coord = 0;

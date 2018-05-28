@@ -26,6 +26,7 @@
 		this.currTopAppearance = this.FenderCarAppearancesList[this.index];
   	};
 
+    //consists of a semisphere, where only a half slices are represented (quarte of a sphere)
     display()
     {
         this.scene.pushMatrix();
@@ -34,14 +35,9 @@
         this.mudguard.display();
         this.scene.popMatrix();
     };
-
+    //Updates the part texture
     update(index) {
-        if(index == 'disneyTopText') {
-            this.currFenderAppearance = this.FenderCarAppearancesList['whiteTopText'];
-        }
-        else {
             this.currFenderAppearance = this.FenderCarAppearancesList[index];
-        }
     }
 
  }

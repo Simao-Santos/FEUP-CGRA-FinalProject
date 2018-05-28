@@ -17,11 +17,13 @@ class MyCraneMainArm extends CGFobject
 
     };
 
+
     display() {
 
             this.scene.pushMatrix();
         this.scene.rotate(Math.PI / 8, 1, 0, 0);
 
+        //Small base the also spins around
             this.scene.pushMatrix();
         this.scene.scale(0.8, 0.8, 0.5);
         this.base.display();

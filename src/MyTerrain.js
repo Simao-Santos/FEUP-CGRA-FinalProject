@@ -9,6 +9,8 @@ class MyTerrain extends Plane{
        this.update_vertices();
     };
 
+
+    //updates the this.vertices array with the new z coordinates, creating a new terrain
     update_vertices(){
         let z = 2;
         for (var j = 0; j < this.altimetry.length; j++)

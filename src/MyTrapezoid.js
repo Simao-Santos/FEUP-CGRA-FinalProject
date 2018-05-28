@@ -21,6 +21,12 @@ class MyTrapezoid extends CGFobject
 		this.initBuffers();
 	};
 
+
+	//Trapezoid that allows the developes to choose various specifications:
+	// midLength - The size between both inclines sides of the Trapezoid
+	// rightDiff/leftDiff - The right/left difference in length between the trapzoid top and bot Sides
+	// topDepth - the distance of the top side to user in relation to the bot sides
+	// height - the height of the trapzoid
 	initBuffers()
 	{
         var halfMidLength = this.midLength / 2;

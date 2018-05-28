@@ -14,6 +14,8 @@ class MyPrism extends CGFobject
 		this.initBuffers();
 	};
 
+
+	//Each vertice is pushed twice, since if there was only one of each, we could not have 2 normals coming from the same spot
 	initBuffers()
 	{
 		var degToRad = Math.PI / 180.0;

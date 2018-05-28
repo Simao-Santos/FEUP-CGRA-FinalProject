@@ -14,6 +14,7 @@ class MyCraneBase extends CGFobject
 
     };
 
+    //The base is made with a cylinder and a circle as the top
     display() {
 
             this.scene.pushMatrix();

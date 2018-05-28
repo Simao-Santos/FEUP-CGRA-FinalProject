@@ -12,6 +12,7 @@ class MyBoxSides extends CGFobject
 
 	};
 
+	//Used to make the sides of the lower bodywork of the car
 	display() {
 
 			this.scene.pushMatrix();

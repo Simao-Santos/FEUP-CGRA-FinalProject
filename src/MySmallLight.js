@@ -18,6 +18,7 @@ class MySmallLight extends CGFobject
 
     };
 
+    //This small light is a long semisphere
     display() {
 
         this.scene.pushMatrix();

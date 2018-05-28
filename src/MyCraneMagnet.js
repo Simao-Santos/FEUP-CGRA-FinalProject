@@ -25,6 +25,8 @@ class MyCraneMagnet extends CGFobject
 
     };
 
+    //This function can receive the car has the argument. This happens when it is lifted in the air. If so, pulledCar id different from undefined, and
+    //the same transformations are applied both to the car and to the magnet and wire. Both the magnet and the wire are cylinder, scaled to specific proportions
     display(pulledCar) {
 
             this.scene.pushMatrix();
@@ -35,15 +37,14 @@ class MyCraneMagnet extends CGFobject
         if(pulledCar != undefined){
 
             this.scene.pushMatrix();
-            // this.scene.translate(pulledCar.x, pulledCar.y, pulledCar.z);
             this.scene.translate(0, -4.9, -2.6);
             this.scene.rotate(Math.PI / 2, 1, 0, 0);
             this.scene.rotate(Math.PI, 0, 1, 0);
-            // this.scene.translate(-pulledCar.x, -pulledCar.y, -pulledCar.z);
             pulledCar.display();
             this.scene.popMatrix();
 
         }
+
         this.rustyText.apply();
             this.scene.pushMatrix();
         this.scene.translate(0, 0, 0.1);

@@ -39,13 +39,17 @@
         this.disneyText.setSpecular(0.3, 0.3, 0.3, 1);
         this.disneyText.setShininess(150);
 
+        //Array of all the textures available to the car
         this.vehicleAppearances = [this.blackText, this.whiteText, this.goldText, this.redText, this.disneyText];
 
+        //Variables that define the car parts's textures
         this.lowBodyworkTexture = lowBodyworkTexture;
         this.topBodyworkTexture = topBodyworkTexture;
         this.wheelTexture = wheelTexture;
         this.fenderTexture = fenderTexture;
 
+
+        //The car has all of this different parts to it
         this.lowerBodyWork = new LowBodyWork(scene, this.vehicleAppearances, lowBodyworkTexture);
         this.upperBodyWork = new TopBodyWork(scene, this.vehicleAppearances, topBodyworkTexture);
         this.wheel_back = new Wheel(scene, this.vehicleAppearances, wheelTexture);
@@ -55,11 +59,15 @@
         this.smallLight = new MySmallLight(scene);
         this.windows = new MyWindows(scene);
 
-        this.x = 0;
+        //Cordintes x, y and z of the car in relation to the origin
+        this.x = -20;
         this.y = 0;
-        this.z = 6;
+        this.z = 8;
+
         this.velocity = 0;
-        this.angle = 0;
+
+        //angle the car will have (used to stir the car)
+        this.angle = -Math.PI / 2;
 
   	};
 
@@ -186,6 +194,7 @@
 
     }
 
+    //Updates the car coordinates on each update cycle
     updateCoordinates(deltaTime) {
 
         this.x += this.velocity * deltaTime * Math.cos(this.angle);
@@ -193,6 +202,7 @@
 
     };
 
+    //updates the wheel back and forward spin
     updateWheelSpin(deltaTime) {
 
         this.wheel_back.setWheelSpinAngle(this.velocity * deltaTime * Math.PI / 2);
@@ -200,10 +210,12 @@
 
     };
 
+    //Updates the car angle in relation to the current wheel angle
     updateCarAngle(deltaTime) {
         this.angle += this.wheel_front.stir_angle * this.velocity * deltaTime * 0.4 ;
     }
 
+    //Updates each car part textures
     updateTextures(topBodyworkTexture, lowBodyworkTexture, wheelTexture, fenderTexture){
 
         this.lowerBodyWork.update(lowBodyworkTexture);

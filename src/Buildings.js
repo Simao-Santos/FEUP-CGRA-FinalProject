@@ -9,7 +9,7 @@ class Buildings extends CGFobject{
         this.wallTexture = new CGFappearance(this.scene);
 		this.wallTexture.loadTexture("../resources/images/wall_home.png");
         this.wallTexture.setTextureWrap("REPEAT", "REPEAT");
-        
+
         this.topTexture = new CGFappearance(this.scene);
 		this.topTexture.loadTexture("../resources/images/top.jpg");
         this.topTexture.setTextureWrap("REPEAT", "REPEAT");
@@ -21,7 +21,7 @@ class Buildings extends CGFobject{
 
     display(){
 
-    //entrada
+    //home entrance
     this.scene.pushMatrix();
         this.scene.translate(5, 3, 8.5);
         this.scene.scale(10, 6, 10);
@@ -39,7 +39,7 @@ class Buildings extends CGFobject{
         this.wall1.display();
     this.scene.popMatrix();
 
-    //parede lateral
+    //Side wall
     this.scene.pushMatrix();
         this.scene.translate(10, 3, 3.5);
         this.scene.scale(10, 6, 10);
@@ -49,7 +49,7 @@ class Buildings extends CGFobject{
         this.wall1.display();
     this.scene.popMatrix();
 
-    //parede lateral
+	//Side wall
     this.scene.pushMatrix();
         this.scene.translate(10, 3, 13.5);
         this.scene.scale(10, 6, 10);
@@ -58,7 +58,7 @@ class Buildings extends CGFobject{
         this.wall1.display();
     this.scene.popMatrix();
 
-    //parede trás
+	//Back wall
     this.scene.pushMatrix();
         this.scene.translate(15, 3, 8.5);
         this.scene.scale(10, 6, 10);
@@ -68,7 +68,7 @@ class Buildings extends CGFobject{
         this.wall1.display();
     this.scene.popMatrix();
 
-    //telhado/topo
+	//Rooftop
     this.scene.pushMatrix();
         this.scene.translate(10, 6, 8.5);
         this.scene.scale(10, 6, 10);

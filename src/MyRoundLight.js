@@ -8,7 +8,7 @@ class MyRoundLight extends CGFobject
     constructor(scene) {
         super(scene);
 
-        this.light = new MyCircle(scene, 30);
+        this.light = new MyCylinder(scene, 30, 30);
 
         this.texture = new CGFappearance(this.scene);
         this.texture.loadTexture("../resources/images/biglight.png");
@@ -20,6 +20,7 @@ class MyRoundLight extends CGFobject
 
     };
 
+    //Round Car Light made of a cylinder
     display() {
 
         this.scene.pushMatrix();
