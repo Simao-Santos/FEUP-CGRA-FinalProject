@@ -497,8 +497,4 @@ class LightingScene extends CGFscene
 		}
 	}
 
-		if(this.car.x > 13 && this.car.x < 17 && this.car.z > 4.5 && this.car.z < 6.5)
-			this.animationStatus = true;
-
-
 };
